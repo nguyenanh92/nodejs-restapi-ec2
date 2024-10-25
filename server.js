@@ -3,11 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
+const connectDB = require("./config/db");
 const userRoutes = require("./routes/users");
 const errorHandler = require("./middlewares/error");
 
 
 // Connect to DB
+connectDB();
 
 // Express App
 const app = express();
@@ -18,8 +20,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/api/users", userRoutes);
 
-app.use("/api/hello", (req, res) => {
+app.use("/api/products", (req, res) => {
   return res.status(200).json({
     message: 'This is new feature change, a new route for products'
   })
